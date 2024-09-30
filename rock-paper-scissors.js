@@ -8,14 +8,15 @@ let getComputerChoice = () => {
 console.log(getComputerChoice());
 
 let getHumanChoice = () => {
-    let choice = prompt("rock, paper or scissors?");
-    // capitalisation? 
-    // if misspelt?
-    if (choice === "rock" || choice === "paper" || choice === "scissors") { // not sure if need strict here..
-        return choice;
-    } else {
-        prompt("please type rock, paper, or scissors."); // how to loop? 
-    };
+    let choice; // declares var and sets it to true.
+    while (true) {
+        choice = prompt("rock, paper or scissors?").toLowerCase();
+        if (choice === "rock" || choice === "paper" || choice === "scissors") { // not sure if need strict here..
+            return choice;
+        } else {
+            alert("please type rock, paper, or scissors."); // how to loop? 
+        };
+    }
 }
 
 console.log(getHumanChoice());
