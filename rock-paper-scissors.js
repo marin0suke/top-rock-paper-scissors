@@ -1,26 +1,3 @@
-// function to get the computer choice.
-
-// let getComputerChoice = () => {
-//     let choice = Math.floor((Math.random() * 3) + 1); // Math floor makes every mathrandom 0. * 3 to get floors 0, 1 or 2. for readability, can add + 1 so we get 1, 2, 3.
-//     console.log(choice);
-//     return (choice == 1) ? "rock" : (choice == 2) ? "paper" : "scissors";
-// };
-
-// let getHumanChoice = () => {
-//         let choice = prompt("rock, paper or scissors?").toLowerCase();
-//         if (choice === "rock" || choice === "paper" || choice === "scissors") {
-//             console.log(choice);
-//             return choice;
-//         } else {
-//             alert("please type rock, paper, or scissors.");
-//         };
-// }
-
-// const humanSelection = getHumanChoice();
-// const computerSelection = getComputerChoice();
-
-// playRound(humanSelection, computerSelection);
-
 function playGame() {
   let humanScore = 0;
   let computerScore = 0;
@@ -29,11 +6,10 @@ function playGame() {
     if (humanChoice === computerChoice) {
       // edge cases.
       alert("It's a draw!");
-      return "draw";
+      return; // early exit to avoid increment.
     }
 
-    // initialise var winner to return from this function so we can console.log the winner.
-    let roundWinner = // if we need the outcome in a package to display or input into another func - init variable.
+    let roundWinner =
       (humanChoice === "rock" && computerChoice === "scissors") ||
       (humanChoice === "paper" && computerChoice === "rock") ||
       (humanChoice === "scissors" && computerChoice === "paper")
@@ -41,15 +17,15 @@ function playGame() {
         : "computer";
 
     if (roundWinner === "human") {
-        humanScore++;
+      humanScore++;
     } else {
-        computerScore++;
+      computerScore++;
     }
 
     console.log(humanScore);
     console.log(computerScore);
 
-    alert(`End of round ${[i + 1]}!`);
+    alert(`${roundWinner === "human" ? "You" : "Computer"} win this round!`);
   }
 
   for (i = 0; i <= 4; i++) {
@@ -63,25 +39,40 @@ function playGame() {
     } else {
       alert("please type rock, paper, or scissors.");
       i--; // don't add count to the round for mistyping input.
-      continue; // 
+      continue; //
     }
 
-    let computerChoice = () => {
+    let getComputerChoice = () => {
       let choice = Math.floor(Math.random() * 3 + 1); // Math floor makes every mathrandom 0. * 3 to get floors 0, 1 or 2. for readability, can add + 1 so we get 1, 2, 3.
       return choice == 1 ? "rock" : choice == 2 ? "paper" : "scissors";
     };
 
-    console.log(`Computer chose ${computerChoice()}!`);
+    let computerChoice = getComputerChoice(); // save to var bc we are logging as well as using it as param in playRound (multiple uses).
+    console.log(`Computer chose ${computerChoice}!`);
 
     playRound(humanChoice, computerChoice);
   }
 
-  alert(`${humanScore > computerScore ? "You" : "Computer"} won the game!`);
+  if (humanScore == computerScore) {
+    alert("Game ends in a draw!");
+  } else {
+    alert(`${humanScore > computerScore ? "You" : "Computer"} won the game!`);
+  }
+
+  let playAgain = prompt("Would you like to play again?").toLowerCase();
+  while (
+    playAgain !== "yes" &&
+    playAgain !== "y" &&
+    playAgain !== "no" &&
+    playAgain !== "n"
+  ) {
+    playAgain = prompt("Please enter yes/y or no/n");
+  }
+  if (playAgain === "yes" || playAgain === "y") {
+    playGame();
+  } else {
+    alert("Bye :)");
+  }
 }
 
 playGame();
-
-// play game
-// game is 5 rounds, score incremented and higher score is overall winner.
-// round start: get comp choice and human choice.
-// input
